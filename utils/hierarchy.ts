@@ -9,6 +9,7 @@ export function buildHierarchies(edges: string[]) {
 
     for (const e of edges) {
         const [p, c] = e.split("->");
+        if (parentOf.has(c)) continue;
         allNodes.add(p);
         allNodes.add(c);
         if (!parentOf.has(c)) {
@@ -18,7 +19,8 @@ export function buildHierarchies(edges: string[]) {
         }
     }
 
-    const roots = [...allNodes].filter((n) => !parentOf.has(n)).sort();
+    const nodesWithChildren = new Set(children.keys());
+    const roots = [...allNodes].filter((n) => !parentOf.has(n) && nodesWithChildren.has(n)).sort();
     const visited = new Set<string>();
     const groups: string[][] = [];
 
@@ -88,7 +90,9 @@ export function buildHierarchies(edges: string[]) {
     for (const n of unreached) adjUndirected.set(n, new Set());
     for (const e of edges) {
         const [p, c] = e.split("->");
-        if (unreached.includes(p) && unreached.includes(c)) {
+        const unreachedSet = new Set(unreached);
+
+        if (unreachedSet.has(p) && unreachedSet.has(c)) {
             adjUndirected.get(p)?.add(c);
             adjUndirected.get(c)?.add(p);
         }
