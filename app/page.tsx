@@ -94,12 +94,13 @@ export default function Home() {
 
   return (
     <main style={{
-      maxWidth: 720,
+      maxWidth: 1100,
+      width: "100%",
       margin: "0 auto",
-      padding: "48px 24px",
+      padding: "48px 32px",
       fontFamily: "'DM Sans', sans-serif",
-      background: "var(--bg)",
-      color: "var(--text)"
+      background: bg,
+      color: text
     }}>
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
